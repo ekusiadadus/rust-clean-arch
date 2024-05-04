@@ -1,4 +1,4 @@
-workspace = { members = [ "cfn", "src/application","src/domain", "src/infrastructure"] }
+workspace = { members = [ "cfn", "src/application", "src/controller", "src/domain", "src/infrastructure"] }
 [package]
 name = "pluto-backend"
 version = "0.1.0"
