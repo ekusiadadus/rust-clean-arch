@@ -7,3 +7,9 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+domain = { path = "src/domain" }
+controller = { path = "src/controller" }
+application = { path = "src/application" }
+infrastructure = { path = "src/infrastructure" }
+tokio = { version = "1.37.0", features = ["full"] }
+axum = "0.7.5"
