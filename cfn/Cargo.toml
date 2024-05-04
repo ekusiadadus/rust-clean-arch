@@ -1,0 +1,12 @@
+[package]
+name = "cfn"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+anyhow = "1.0.79"
+aws-config = { version = "1.0.1", features = ["behavior-version-latest"] }
+aws-sdk-s3 = { version = "1.4.0", features = ["rt-tokio"] }
+tokio = { version = "1.20.1", features = ["full"] }
