@@ -13,6 +13,9 @@ impl UserRepositoryImpl {
     }
 }
 
+unsafe impl Send for UserRepositoryImpl {}
+unsafe impl Sync for UserRepositoryImpl {}
+
 #[async_trait]
 impl UserRepository for UserRepositoryImpl {
     async fn create(&self, user: User) -> Result<User, sqlx::Error> {

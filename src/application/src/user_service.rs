@@ -1,8 +1,9 @@
 use async_trait::async_trait;
 use domain::user::User;
+use std::sync::Arc;
 
 #[async_trait]
-pub trait UserRepository {
+pub trait UserRepository: Send + Sync {
     async fn create(&self, user: User) -> Result<User, sqlx::Error>;
     async fn find_by_id(&self, id: &str) -> Result<Option<User>, sqlx::Error>;
     async fn find_by_email(&self, email: &str) -> Result<Option<User>, sqlx::Error>;
@@ -10,12 +11,13 @@ pub trait UserRepository {
     async fn delete(&self, id: &str) -> Result<(), sqlx::Error>;
 }
 
+#[derive(Clone)]
 pub struct UserService {
-    repository: Box<dyn UserRepository>,
+    repository: Arc<dyn UserRepository + Send + Sync>,
 }
 
 impl UserService {
-    pub fn new(repository: Box<dyn UserRepository>) -> Self {
+    pub fn new(repository: Arc<dyn UserRepository + Send + Sync>) -> Self {
         Self { repository }
     }
 

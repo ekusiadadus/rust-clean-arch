@@ -1,9 +1,11 @@
+use std::sync::Arc;
+
 // application/src/session_service.rs
 use async_trait::async_trait;
 use domain::session::Session;
 
 #[async_trait]
-pub trait SessionRepository {
+pub trait SessionRepository: Send + Sync {
     async fn create(&self, session: Session) -> Result<Session, sqlx::Error>;
     async fn find_by_id(&self, id: &str) -> Result<Option<Session>, sqlx::Error>;
     async fn find_by_user_id(&self, user_id: &str) -> Result<Option<Session>, sqlx::Error>;
@@ -14,15 +16,15 @@ pub trait SessionRepository {
     async fn delete(&self, id: &str) -> Result<(), sqlx::Error>;
 }
 
+#[derive(Clone)]
 pub struct SessionService {
-    repository: Box<dyn SessionRepository>,
+    repository: Arc<dyn SessionRepository + Send + Sync>,
 }
 
 impl SessionService {
-    pub fn new(repository: Box<dyn SessionRepository>) -> Self {
+    pub fn new(repository: Arc<dyn SessionRepository + Send + Sync>) -> Self {
         Self { repository }
     }
-
     pub async fn create_session(&self, session: Session) -> Result<Session, sqlx::Error> {
         self.repository.create(session).await
     }
