@@ -1,9 +1,10 @@
 use async_trait::async_trait;
 use domain::user::User;
+use mockall::automock;
 use std::sync::Arc;
-
+#[automock]
 #[async_trait]
-pub trait UserRepository: Send + Sync {
+pub trait UserRepository: Send + Sync + 'static {
     async fn create(&self, user: User) -> Result<User, sqlx::Error>;
     async fn find_by_id(&self, id: &str) -> Result<Option<User>, sqlx::Error>;
     async fn find_by_email(&self, email: &str) -> Result<Option<User>, sqlx::Error>;

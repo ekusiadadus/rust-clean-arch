@@ -3,9 +3,11 @@ use std::sync::Arc;
 // application/src/session_service.rs
 use async_trait::async_trait;
 use domain::session::Session;
+use mockall::automock;
 
+#[automock]
 #[async_trait]
-pub trait SessionRepository: Send + Sync {
+pub trait SessionRepository: Send + Sync + 'static {
     async fn create(&self, session: Session) -> Result<Session, sqlx::Error>;
     async fn find_by_id(&self, id: &str) -> Result<Option<Session>, sqlx::Error>;
     async fn find_by_user_id(&self, user_id: &str) -> Result<Option<Session>, sqlx::Error>;
