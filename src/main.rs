@@ -14,11 +14,9 @@ async fn main() {
 
     let user_repository = UserRepositoryImpl::new(pool.clone());
     let user_service = UserService::new(Arc::new(user_repository));
-    let user_service = Arc::new(user_service);
 
     let session_repository = SessionRepositoryImpl::new(pool.clone());
     let session_service = SessionService::new(Arc::new(session_repository));
-    let session_service = Arc::new(session_service);
 
     let app = Router::new()
         .route("/users", post(user_controller::create_user))

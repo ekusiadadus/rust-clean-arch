@@ -23,4 +23,7 @@ envload:
 migrate: envload
 	sqlx migrate run
 
+connect-to-db: envload
+	psql $(DATABASE_URL)
+
 .PHONY: envload
