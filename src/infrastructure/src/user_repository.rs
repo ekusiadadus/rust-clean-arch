@@ -2,6 +2,7 @@ use application::user_service::UserRepository;
 use async_trait::async_trait;
 use domain::user::User;
 use sqlx::PgPool;
+use tracing::{error, info};
 
 pub struct UserRepositoryImpl {
     pool: PgPool,
@@ -19,7 +20,7 @@ unsafe impl Sync for UserRepositoryImpl {}
 #[async_trait]
 impl UserRepository for UserRepositoryImpl {
     async fn create(&self, user: User) -> Result<User, sqlx::Error> {
-        sqlx::query!(
+        match sqlx::query!(
             r#"
             INSERT INTO users (id, name, email, email_verified, image)
             VALUES ($1, $2, $3, $4, $5)
@@ -31,9 +32,17 @@ impl UserRepository for UserRepositoryImpl {
             user.image
         )
         .execute(&self.pool)
-        .await?;
-
-        Ok(user)
+        .await
+        {
+            Ok(_) => {
+                info!("User created successfully: {:?}", user);
+                Ok(user)
+            }
+            Err(err) => {
+                error!("Failed to create user: {:?}. Error: {:?}", user, err);
+                Err(err)
+            }
+        }
     }
 
     async fn find_by_id(&self, id: &str) -> Result<Option<User>, sqlx::Error> {

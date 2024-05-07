@@ -1433,6 +1433,7 @@ dependencies = [
  "async-trait",
  "domain",
  "sqlx",
+ "tracing",
 ]
 
 [[package]]
