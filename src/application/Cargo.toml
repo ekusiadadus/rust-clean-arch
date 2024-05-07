@@ -9,3 +9,4 @@ edition = "2021"
 domain = { path = "../domain" }
 async-trait = "0.1.80"
 sqlx = { version = "0.7.4", features = ["runtime-tokio-rustls", "postgres", "chrono", "uuid"] }
+mockall = "0.12.1"
