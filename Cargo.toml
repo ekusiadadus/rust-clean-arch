@@ -1,6 +1,6 @@
 workspace = { members = [ "cfn", "src/application", "src/controller", "src/domain", "src/infrastructure"] }
 [package]
-name = "pluto-backend"
+name = "rust-clean-architecture"
 version = "0.1.0"
 edition = "2021"
 

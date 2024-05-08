@@ -1854,18 +1854,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d231b230927b5e4ad203db57bbcbee2802f6bce620b1e4a9024a07d94e2907ec"
 
 [[package]]
-name = "pluto-backend"
-version = "0.1.0"
-dependencies = [
- "application",
- "axum",
- "controller",
- "domain",
- "infrastructure",
- "tokio",
-]
-
-[[package]]
 name = "powerfmt"
 version = "0.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2087,6 +2075,18 @@ dependencies = [
  "spki 0.7.3",
  "subtle",
  "zeroize",
+]
+
+[[package]]
+name = "rust-clean-architecture"
+version = "0.1.0"
+dependencies = [
+ "application",
+ "axum",
+ "controller",
+ "domain",
+ "infrastructure",
+ "tokio",
 ]
 
 [[package]]
